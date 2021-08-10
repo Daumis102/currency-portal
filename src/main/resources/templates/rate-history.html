@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+        <h3 th:text="|Rate history of: ${currency}|"></h3>
+        <table style="width:20%">
+            <tr>
+              <th>Date</th>
+              <th>Rate</th>
+            </tr>
+            <tr  th:each="rate : ${history}">
+              <td th:text="${rate.date}"></td>
+              <td th:text="${rate.rate}"></td>
+            </tr>
+          </table> 
+    </div>
+</body>
+</html>

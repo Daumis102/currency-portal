@@ -5,8 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-    <ul th:each="rate : ${rates}">
-        <li th:text="${rate.currency} ${rate.rate} ${rate.value}"></li>
-    </ul>
+    <div th:each="rate : ${rates}">
+        <span th:text="|Currency: ${rate.currency} ---- Rate: ${rate.rate}|"></span>
+        <a th:href="@{/rate-history(currency=${rate.currency})}" class="btn btn-success">Select</a>
+    </div>
 </body>
 </html>

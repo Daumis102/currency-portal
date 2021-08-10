@@ -25,8 +25,14 @@ public class RateDbService {
     return rates;
   }
 
-  public void test(){
-    System.out.println(rateRepository.test());
+  public List<Rate> getHistory(String currency){
+    List<Rate> rates = new ArrayList<Rate>();
+    rateRepository.getHistory(currency).forEach(rate -> rates.add(rate));
+    return rates;
+  }
+
+  public Rate getNewest(String currency){
+    return rateRepository.getNewest(currency);
   }
 
   public void saveOrUpdate(Rate rate) {
