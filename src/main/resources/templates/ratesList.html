@@ -5,6 +5,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-    <p th:text="'Hello'" />
+    <ul th:each="rate : ${rates}">
+        <li th:text="${rate.currency} ${rate.rate} ${rate.value}"></li>
+    </ul>
 </body>
 </html>

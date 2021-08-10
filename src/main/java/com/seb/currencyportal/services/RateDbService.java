@@ -19,11 +19,16 @@ public class RateDbService {
     return rates;
   }
 
-  // //getting a specific record
-  // public Student getRateByCurrency(int id)
-  // {
-  // return studentRepository.findById(id).get();
-  // }
+  public List<Rate> getAllNewest(){
+    List<Rate> rates = new ArrayList<Rate>();
+    rateRepository.getAllNewest().forEach(rate -> rates.add(rate));
+    return rates;
+  }
+
+  public void test(){
+    System.out.println(rateRepository.test());
+  }
+
   public void saveOrUpdate(Rate rate) {
     rateRepository.save(rate);
   }

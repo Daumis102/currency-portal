@@ -64,8 +64,6 @@
 			<version>2.3.3.RELEASE</version>
 		</dependency>
 		
-		
-		
 	</dependencies>
 
 	<build>

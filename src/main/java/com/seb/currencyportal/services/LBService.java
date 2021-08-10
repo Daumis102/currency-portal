@@ -88,7 +88,7 @@ public class LBService {
             String currency = data.item(0).getTextContent();
             Float rate = Float.parseFloat(data.item(1).getTextContent());
 
-            Rate rateData = new Rate(date, currency, rate);
+            Rate rateData = new Rate(currency, date, rate);
             array.add(rateData);
 
         }
