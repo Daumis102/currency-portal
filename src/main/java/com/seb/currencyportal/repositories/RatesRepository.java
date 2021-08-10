@@ -18,6 +18,9 @@ public interface RatesRepository extends CrudRepository<Rate, Integer>
     public Rate getNewest(@Param("currency") String currency);
 
     
-    @Query(value = "FROM Rate WHERE currency=:currency")
+    @Query("FROM Rate WHERE currency=:currency")
     public Iterable<Rate> getHistory(@Param("currency") String currency);
+
+    @Query(value = "SELECT DISTINCT Currency From Rates", nativeQuery = true)
+    public Iterable<String> getCurrenciesList();
 }  

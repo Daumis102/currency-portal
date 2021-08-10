@@ -31,6 +31,12 @@ public class RateDbService {
     return rates;
   }
 
+  public List<String> getCurrenciesList(){
+    List<String> currencies = new ArrayList<String>();
+    rateRepository.getCurrenciesList().forEach(currency -> currencies.add(currency));
+    return currencies;
+  }
+
   public Rate getNewest(String currency){
     return rateRepository.getNewest(currency);
   }

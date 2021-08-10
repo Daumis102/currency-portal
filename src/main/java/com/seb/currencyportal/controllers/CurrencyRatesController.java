@@ -3,6 +3,7 @@ package com.seb.currencyportal.controllers;
 import java.io.IOException;
 import java.util.List;
 
+import com.seb.currencyportal.formModels.CalculatorForm;
 import com.seb.currencyportal.models.Rate;
 import com.seb.currencyportal.services.LBService;
 import com.seb.currencyportal.services.RateDbService;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -55,14 +57,16 @@ public class CurrencyRatesController {
 	}
 
 	@GetMapping("/currency-calculator")
-	public String curencyCalculator(){
-		
+	public String curencyCalculator(Model model){
+		List<String> currenciesList = db.getCurrenciesList();
+		model.addAttribute("currenciesList", currenciesList);
+		model.addAttribute("calculatorForm", new CalculatorForm());
 		return "currency-calculator";
 	}
 
 	@PostMapping("/currency-calculator")
-	public String curencyCalculator(@RequestParam String selectedCurrency, Model model){
-		Rate rate = db.getNewest(selectedCurrency);
+	public String curencyCalculator(@ModelAttribute CalculatorForm form, Model model){
+		Rate rate = db.getNewest(form.getCurrency());
 		model.addAttribute("rate", rate);
 		return "currency-calculator";
 	}
