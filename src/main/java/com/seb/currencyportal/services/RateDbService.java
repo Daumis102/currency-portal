@@ -8,7 +8,7 @@ import com.seb.currencyportal.models.Rate;
 import com.seb.currencyportal.repositories.RatesRepository;  
 
 @Service
-public class RateService {
+public class RateDbService {
 
   @Autowired
   RatesRepository rateRepository;
