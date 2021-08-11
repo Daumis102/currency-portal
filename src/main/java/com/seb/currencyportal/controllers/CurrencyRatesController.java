@@ -3,6 +3,8 @@ package com.seb.currencyportal.controllers;
 import java.io.IOException;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.seb.currencyportal.formModels.CalculatorForm;
 import com.seb.currencyportal.models.Rate;
 import com.seb.currencyportal.services.LBService;
@@ -11,10 +13,12 @@ import com.seb.currencyportal.services.RateDbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @Controller
@@ -65,15 +69,20 @@ public class CurrencyRatesController {
 	}
 
 	@PostMapping("/currency-calculator")
-	public String curencyCalculator(@ModelAttribute CalculatorForm form, Model model){
-		Rate rateData = db.getNewest(form.getCurrency());
-		Float amount = form.getAmountFloat();
-		Float converted = amount * rateData.getRate();
+	public String curencyCalculator(@ModelAttribute @Valid CalculatorForm form, BindingResult bindingResult, Model model){
+		if (!bindingResult.hasErrors()) {
+			Rate rateData = db.getNewest(form.getCurrency());
+			Float amount = form.getAmountFloat();
+			Float converted = amount * rateData.getRate();
+			
+			model.addAttribute("rate", rateData);
+			model.addAttribute("converted", converted);
+			model.addAttribute("calculatorForm", new CalculatorForm());
+
+        }
 		List<String> currenciesList = db.getCurrenciesList();
 		model.addAttribute("currenciesList", currenciesList);
-		model.addAttribute("calculatorForm", new CalculatorForm());
-		model.addAttribute("rate", rateData);
-		model.addAttribute("converted", converted);
+		
 		return "currency-calculator";
 	}
 }
