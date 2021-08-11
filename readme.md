@@ -10,3 +10,7 @@ Rates are automatically obtained from Lietuvos Bankas and added to the database 
 
 ## Notes
 From the task I have understood that all the data should be taken from the H2 database for display purposes (ex. showing history), instead of querrying the Lietuvos Bankas website. Due to this, history page initially shows only one rate, which is prepopulated with newest rates for each currency during the application startup. After a few days of the continuous application work, there would be more rates displayed in the history page.
+
+## Startup
+
+Start the application using `./mvnw spring-boot:run`
