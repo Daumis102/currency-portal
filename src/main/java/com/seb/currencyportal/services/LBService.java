@@ -28,20 +28,22 @@ public class LBService {
     @Autowired
     RateDbService rateDbService;
 
-    public void updateDatabase() throws IOException{
+    private static final String LB_API = "http://www.lb.lt/webservices/FxRates/FxRates.asmx";
+    private static final String LB_API_RATES_ENDPOINT = "getCurrentFxRates?tp=EU";
+
+    public void updateDatabase() throws IOException{ // pass IOException if there is problem with a connection and response as upper layers would know what to do.
         ArrayList<Rate> rates = getCurrencyRates();
         for (Rate rate : rates) {
             rateDbService.saveOrUpdate(rate);
         }
-
     }
 
-    public ArrayList<Rate> getCurrencyRates() throws IOException{
+    public ArrayList<Rate> getCurrencyRates() throws IOException{ // pass IOException if there is problem with a connection and response as upper layers would know what to do.
         
         String currencyRatesXml = requestCurrencyRates();
         try {
-            return xml2HashMap(currencyRatesXml);
-        } catch (SAXException | ParserConfigurationException e) {
+            return xml2List(currencyRatesXml);
+        } catch (SAXException | ParserConfigurationException e) { // Catch these here, as upper layers do not know about xml conversions and how to handle them
             // TODO Auto-generated catch block
             e.printStackTrace();
             return new ArrayList<Rate>();
@@ -49,7 +51,7 @@ public class LBService {
     }
 
     private String requestCurrencyRates() throws IOException{
-        URL url = new URL("http://www.lb.lt/webservices/FxRates/FxRates.asmx/getCurrentFxRates?tp=EU");
+        URL url = new URL(LB_API + "/" + LB_API_RATES_ENDPOINT);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         try {
             con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -68,7 +70,7 @@ public class LBService {
             return response.toString();
     }
 
-    private ArrayList<Rate> xml2HashMap(String ratesXml) throws IOException, SAXException, ParserConfigurationException{
+    private ArrayList<Rate> xml2List(String ratesXml) throws IOException, SAXException, ParserConfigurationException{
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document doc = dBuilder.parse(new ByteArrayInputStream(ratesXml.getBytes()));

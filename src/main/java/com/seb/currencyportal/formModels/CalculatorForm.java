@@ -3,7 +3,7 @@ package com.seb.currencyportal.formModels;
 import javax.validation.constraints.Pattern;
 
 public class CalculatorForm {
-    @Pattern(regexp="^\\d*(\\.\\d{0,2})?$", message = "Please enter a number")
+    @Pattern(regexp="^\\d*(\\.\\d{0,2})?$", message = "Please enter a number") // Used to validate if amoutn entered is a (decimal) number
     String amount;
     String currency;
 

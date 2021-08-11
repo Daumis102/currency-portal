@@ -11,7 +11,7 @@ import com.seb.currencyportal.models.compositeKeys.RateId;
 
 @Entity
 @Table(name = "Rates")
-@IdClass(RateId.class)
+@IdClass(RateId.class) // Allos composite primary key (currency and date)
 public class Rate{
 
     @Column

@@ -27,17 +27,12 @@ public class SchedulerJobService {
 	@Autowired
 	private SchedulerRepository schedulerRepository;
 
-    @Autowired
-    private LBService lbService;
-
     public void scheduleNewJob(SchedulerJobInfo jobInfo) {
         try {
             scheduler = schedulerFactoryBean.getScheduler();
             JobDetail jobDetail = JobBuilder
                     .newJob((Class<? extends Job>) Class.forName(jobInfo.getJobClass()))
                     .withIdentity(jobInfo.getJobName(), jobInfo.getJobGroup()).build();
-
-                // jobDetail.getJobDataMap().put("LBService", this.lbService);
 
             if (!scheduler.checkExists(jobDetail.getKey())) {
     
