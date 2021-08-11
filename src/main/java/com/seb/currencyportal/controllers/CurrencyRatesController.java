@@ -1,13 +1,11 @@
 package com.seb.currencyportal.controllers;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import com.seb.currencyportal.formModels.CalculatorForm;
 import com.seb.currencyportal.models.Rate;
-import com.seb.currencyportal.services.LBService;
 import com.seb.currencyportal.services.RateDbService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,23 +25,8 @@ public class CurrencyRatesController {
 	@Autowired
 	private RateDbService db;
 
-	@Autowired
-	private LBService lbService;
-
 	@GetMapping("/rates")
 	public String getRates(Model model) {
-		try {
-			lbService.updateDatabase();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Rate fakeRate1 = new Rate("AED","2030-01-01", 0f);
-		db.saveOrUpdate(fakeRate1);
-
-		Rate fakeRate2 = new Rate("AFN","2030-01-01", 0f);
-		db.saveOrUpdate(fakeRate2);
-
 		List<Rate> rates =  db.getAllNewest();
 		model.addAttribute("rates",rates);
 
