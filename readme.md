@@ -2,9 +2,9 @@
 
 ## Features
 
-`/rates` endpoint shows newest rates for every currency available in Lietuvos bankas.
-`/rate-history?currency={currency}` shows the rate history for specified `currency` available in the DB
-`/currency-calculator` Allows converting specified amount of EUR currency to a selected currency.
+`/rates` endpoint shows newest rates for every currency available in Lietuvos bankas.  
+`/rate-history?currency={currency}` shows the rate history for specified `currency` available in the DB  
+`/currency-calculator` Allows converting specified amount of EUR currency to a selected currency.  
 
 Rates are automatically obtained from Lietuvos Bankas and added to the database every midnight.
 
