@@ -9,13 +9,13 @@
 <body>
     <form method="post" th:action="@{/currency-calculator}" th:object="${calculatorForm}">
         <div class="form-group">
-        <label for="amount">Amount</label>
-        <input id="amount" placeholder="Enter the amount to convert" required type="text" th:field="*{Amount}"
+        <label for="amount">Amount to convert (EUR)</label>
+        <input id="amount" placeholder="Enter the amount to convert" required type="number" th:field="*{Amount}"
             class="form-control" />
         </div>
 
         <div class="form-group">
-            <label for="currency">Role</label>
+            <label for="currency">Currency</label>
             <select id="currency" required th:field="*{Currency}" class="form-control ">
                 <option value="" hidden>Select a currency</option>
                 <option th:each="currency : ${currenciesList}" th:value="${currency}" th:text="${currency}">
@@ -24,6 +24,12 @@
         </div>
         <input type="submit" class="btn btn-primary" value="Calculate" />
     </form>
+
+    <div th:if="${converted}">
+        <p th:text="|Converted amount: ${#numbers.formatDecimal(converted, 1, 2)} ${rate.currency}|"></p>
+        <p th:text="|Used Rate: ${rate.rate}|"></p>
+    </div>
+    
 </body>
 
 </html>

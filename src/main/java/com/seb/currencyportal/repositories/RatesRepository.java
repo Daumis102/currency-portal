@@ -14,7 +14,7 @@ public interface RatesRepository extends CrudRepository<Rate, Integer>
     @Query(value = "SELECT * FROM Rates INNER JOIN (SELECT currency, max(date) date FROM Rates GROUP BY Currency) using(currency, date)", nativeQuery = true)
     public Iterable<Rate> getAllNewest();
 
-    @Query(value = "SELECT * FROM Rates INNER JOIN (SELECT currency, max(date) date FROM Rates WHERE currency = 'AUD' GROUP BY Currency) using(currency, date)", nativeQuery = true)
+    @Query(value = "SELECT * FROM Rates INNER JOIN (SELECT currency, max(date) date FROM Rates WHERE currency = :currency GROUP BY Currency) using(currency, date)", nativeQuery = true)
     public Rate getNewest(@Param("currency") String currency);
 
     

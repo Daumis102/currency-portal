@@ -29,5 +29,8 @@ public class CalculatorForm {
         this.currency = currency;
     }
     
+    public Float getAmountFloat(){
+        return Float.parseFloat(amount);
+    }
 
 }

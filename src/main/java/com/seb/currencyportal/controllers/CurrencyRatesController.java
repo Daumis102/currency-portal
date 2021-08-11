@@ -66,8 +66,14 @@ public class CurrencyRatesController {
 
 	@PostMapping("/currency-calculator")
 	public String curencyCalculator(@ModelAttribute CalculatorForm form, Model model){
-		Rate rate = db.getNewest(form.getCurrency());
-		model.addAttribute("rate", rate);
+		Rate rateData = db.getNewest(form.getCurrency());
+		Float amount = form.getAmountFloat();
+		Float converted = amount * rateData.getRate();
+		List<String> currenciesList = db.getCurrenciesList();
+		model.addAttribute("currenciesList", currenciesList);
+		model.addAttribute("calculatorForm", new CalculatorForm());
+		model.addAttribute("rate", rateData);
+		model.addAttribute("converted", converted);
 		return "currency-calculator";
 	}
 }
